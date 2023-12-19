@@ -23,10 +23,10 @@ namespace LibraryInformationSystem.LibraryInformationSystem.API.Controllers
             {
                 if(!withBorrowBooks)
                 {
-                    var user = await _service.GetById(id);
+                    var user = await _service.GetByIdAsync(id);
                     return Ok(user);
                 }
-                var userWithBorrowBooks = await _service.GetByIdWithBorrows(id);
+                var userWithBorrowBooks = await _service.GetByIdWithBorrowsAsync(id);
                 return Ok(userWithBorrowBooks);
                 
             }
@@ -41,7 +41,7 @@ namespace LibraryInformationSystem.LibraryInformationSystem.API.Controllers
         {
             try
             {
-                var user = await _service.GetByName(name);
+                var user = await _service.GetByNameAsync(name);
                 return Ok(user);
             }
             catch (Exception ex)
@@ -55,7 +55,7 @@ namespace LibraryInformationSystem.LibraryInformationSystem.API.Controllers
         {
             try
             {
-                var users = await _service.GetAll();
+                var users = await _service.GetAllAsync();
                 return Ok(users);
             }
             catch (Exception ex)
@@ -69,8 +69,8 @@ namespace LibraryInformationSystem.LibraryInformationSystem.API.Controllers
         {
             try
             {
-                await _service.Create(dto);
-                return Ok();
+                var id = await _service.Create(dto);
+                return Ok(id);
             }
             catch (Exception ex)
             {

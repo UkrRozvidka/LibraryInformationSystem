@@ -5,9 +5,9 @@ namespace LibraryInformationSystem.BLL.Services.Contracts
 {
     public interface IBorrowService
     {
-        Task<long> Create(BorrowCreateDTO dto);
-        Task<IEnumerable<BorrowGetDTO>> GetAll();
-        Task<BorrowGetDTO> GetById(long id);
-        Task Update(long id, BorrowUpdateDto dto);
+        Task<long> CreateAsync(BorrowCreateDTO dto);
+        Task<IEnumerable<BorrowGetDTO>> GetAllAsync();
+        Task<BorrowGetDTO> GetByIdAsync(long id);
+        Task UpdateaAsync(long id, BorrowUpdateDto dto);
     }
 }

@@ -7,8 +7,8 @@ namespace LibraryInformationSystem.LibraryInformationSystem.DAL.Repository.Contr
     {
         Task<IEnumerable<T>> GetAllAsync();
         Task<T> GetByIdAsync(long id);
-        Task<IEnumerable<T>> FindManyWithFilter(Expression<Func<T, bool>> expression);
-        Task<T> FindOneWithFilter(Expression<Func<T, bool>> expression);
+        Task<IEnumerable<T>> GetManyWithFilterAsync(Expression<Func<T, bool>> expression);
+        Task<T> GetOneWithFilterAsync(Expression<Func<T, bool>> expression);
         Task<long> AddAsync(T entity);
         Task UpdateAsync(T entity);
         Task DeleteAsync(long id);

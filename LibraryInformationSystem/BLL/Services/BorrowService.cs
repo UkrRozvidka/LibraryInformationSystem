@@ -25,13 +25,15 @@ namespace LibraryInformationSystem.BLL.Services
             _statusRepository = statusRepository;
         }
 
-        public async Task<long> Create(BorrowCreateDTO dto)
+        public async Task<long> CreateAsync(BorrowCreateDTO dto)
         {
             if (dto == null) throw new ArgumentNullException("DTO cannot be null");
             var borrow = _mapper.Map<Borrow>(dto);
             var user = await _userRepository.GetByIdAsync(dto.UserId) ?? throw new Exception("Incorect user id.");
             var book = await _bookRepository.GetByIdAsync(dto.BookId) ?? throw new Exception("Incorect book id.");
-            
+            var borrowsByUser = await _repository.GetManyWithFilterAsync(br => br.UserId == dto.UserId);
+            if (borrowsByUser.Count() > 7) throw new Exception("Too many borrows already");
+                
             borrow.UserId = user.Id;
             borrow.BookId = book.Id;
             borrow.BorrowDate = DateTime.Now;
@@ -41,16 +43,16 @@ namespace LibraryInformationSystem.BLL.Services
             return borrowId;
         }
 
-        public async Task<BorrowGetDTO> GetById(long id)
+        public async Task<BorrowGetDTO> GetByIdAsync(long id)
         {
             var borrow = await _repository.GetByIdAsync(id) ?? throw new Exception("Not found");
             return await FillPropertyAsync(_mapper.Map<BorrowGetDTO>(borrow));
         }
 
-        public async Task<IEnumerable<BorrowGetDTO>> GetAll()
+        public async Task<IEnumerable<BorrowGetDTO>> GetAllAsync()
         {
             var borrows = await _repository.GetAllAsync();
-            List<BorrowGetDTO> result = new List<BorrowGetDTO>();
+            List<BorrowGetDTO> result = new();
             foreach (var borrow in borrows)
             {
                 result.Add(await FillPropertyAsync(_mapper.Map<BorrowGetDTO>(borrow)));
@@ -58,7 +60,7 @@ namespace LibraryInformationSystem.BLL.Services
             return result;
         }
 
-        public async Task Update(long id, BorrowUpdateDto dto)
+        public async Task UpdateaAsync(long id, BorrowUpdateDto dto)
         {
             var borrow = await _repository.GetByIdAsync(id) ?? throw new Exception("Not found");
             var status = await _statusRepository.GetByIdAsync(dto.StatusId) ?? throw new Exception("Status id incorext");

@@ -22,4 +22,8 @@
     <Folder Include="API\Controllers\Contracts\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
 </Project>

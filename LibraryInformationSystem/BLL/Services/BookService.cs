@@ -31,7 +31,7 @@ namespace LibraryInformationSystem.LibraryInformationSystem.BLL.Services
 
         public async Task<BookGetDTO> GetByTitle(string title)
         {
-            var book = await _repository.FindOneWithFilter(b => b.Title == title) ?? throw new Exception("Not found");
+            var book = await _repository.GetOneWithFilterAsync(b => b.Title == title) ?? throw new Exception("Not found");
             var dto = _mapper.Map<BookGetDTO>(book);
             dto.AvailableCount = await AvailebleCount(book);
             dto.GenreName = await GetGenreNameAsync(book);
@@ -57,7 +57,7 @@ namespace LibraryInformationSystem.LibraryInformationSystem.BLL.Services
         public async Task<long> Create(BookCreateDTO dto)
         {
             if (dto == null) throw new ArgumentNullException("DTO cannot be null.");
-            var genre = await _genreRepository.FindOneWithFilter(g => g.Name == dto.GenreName) ??
+            var genre = await _genreRepository.GetOneWithFilterAsync(g => g.Name == dto.GenreName) ??
                 throw new Exception("Incorect genre name.");
             var book = _mapper.Map<Book>(dto);
             book.Genre = genre;
@@ -69,7 +69,7 @@ namespace LibraryInformationSystem.LibraryInformationSystem.BLL.Services
         public async Task<IEnumerable<BookGetDTO>> GetAllWithFilter(
             IEnumerable<string> authors, IEnumerable<long> genres, int startYear = 0, int endYear = 0)
         {
-            var books = await _repository.FindManyWithFilter(book =>
+            var books = await _repository.GetManyWithFilterAsync(book =>
             (authors == null || authors.Any(author => author == book.Author)) &&
             (genres == null || genres.Any(genre => genre == book.GenreId)) &&
             (startYear == 0 || endYear == 0 || (book.PublishedYear >= startYear && book.PublishedYear <= endYear)));
@@ -99,8 +99,8 @@ namespace LibraryInformationSystem.LibraryInformationSystem.BLL.Services
         private async Task<int> AvailebleCount(Book book)
         {
             int count = book.Count;
-            var borrows = await _borrowRepository.FindManyWithFilter(br => br.BookId == book.Id);
-            return count - borrows.ToList().Count;
+            var borrows = await _borrowRepository.GetManyWithFilterAsync(br => br.BookId == book.Id);
+            return count - borrows.Select(b => b.StatusId == 2).Count();
         }
 
         private async Task<string> GetGenreNameAsync(Book book)

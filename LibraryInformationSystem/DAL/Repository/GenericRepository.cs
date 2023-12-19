@@ -35,12 +35,12 @@ namespace LibraryInformationSystem.LibraryInformationSystem.DAL.Repository
             }
         }
 
-        public async Task<IEnumerable<T>> FindManyWithFilter(Expression<Func<T, bool>> expression)
+        public async Task<IEnumerable<T>> GetManyWithFilterAsync(Expression<Func<T, bool>> expression)
         {
             return await _dbSet.Where(expression).ToListAsync();
         }
 
-        public async Task<T?> FindOneWithFilter(Expression<Func<T, bool>> expression)
+        public async Task<T> GetOneWithFilterAsync(Expression<Func<T, bool>> expression)
         {
             return await _dbSet.FirstOrDefaultAsync(expression);
         }
@@ -50,7 +50,7 @@ namespace LibraryInformationSystem.LibraryInformationSystem.DAL.Repository
             return await _dbSet.ToListAsync();
         }
 
-        public async Task<T?> GetByIdAsync(long id)
+        public async Task<T> GetByIdAsync(long id)
         {
             return await _dbSet.FirstOrDefaultAsync(t => t.Id == id);
         } 

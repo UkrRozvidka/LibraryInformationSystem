@@ -29,18 +29,18 @@ namespace LibraryInformationSystem.LibraryInformationSystem.BLL.Services
             _genreRepository = genreRepository;
         }
 
-        public async Task<UserGetDTO> GetById(long id)
+        public async Task<UserGetDTO> GetByIdAsync(long id)
         {
             var user = await _repository.GetByIdAsync(id) ?? throw new Exception("Not found");
             return _mapper.Map<UserGetDTO>(user);
         }
 
-        public async Task<UserWithBorrowBooksDTO> GetByIdWithBorrows(long id)
+        public async Task<UserWithBorrowBooksDTO> GetByIdWithBorrowsAsync(long id)
         {
             var user = await _repository.GetByIdAsync(id) ?? throw new Exception("Not found");
             var dto = _mapper.Map<UserWithBorrowBooksDTO>(user);
 
-            var borrows = await _borrowRepository.FindManyWithFilter(br => br.UserId == id);
+            var borrows = await _borrowRepository.GetManyWithFilterAsync(br => br.UserId == id);
             foreach (var borrow in borrows)
             {
                 var book = await _bookRepository.GetByIdAsync(borrow.BookId)
@@ -54,14 +54,14 @@ namespace LibraryInformationSystem.LibraryInformationSystem.BLL.Services
         }
 
 
-        public async Task<UserGetDTO> GetByName(string name)
+        public async Task<UserGetDTO> GetByNameAsync(string name)
         {
-            var user = await _repository.FindOneWithFilter(u => u.Name == name) ?? throw new Exception("Not found");
+            var user = await _repository.GetOneWithFilterAsync(u => u.Name == name) ?? throw new Exception("Not found");
 
             return _mapper.Map<UserGetDTO>(user);
         }
 
-        public async Task<IEnumerable<UserGetDTO>> GetAll()
+        public async Task<IEnumerable<UserGetDTO>> GetAllAsync()
         {
             var users = await _repository.GetAllAsync();
 

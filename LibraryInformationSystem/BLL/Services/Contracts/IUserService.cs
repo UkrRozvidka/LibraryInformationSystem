@@ -7,9 +7,9 @@ namespace LibraryInformationSystem.BLL.Services.Contracts
     {
         Task<long> Create(UserCreateDTO dto);
         Task Delete(long id);
-        Task<IEnumerable<UserGetDTO>> GetAll();
-        Task<UserGetDTO> GetById(long id);
-        Task<UserWithBorrowBooksDTO> GetByIdWithBorrows(long id);
-        Task<UserGetDTO> GetByName(string name);
+        Task<IEnumerable<UserGetDTO>> GetAllAsync();
+        Task<UserGetDTO> GetByIdAsync(long id);
+        Task<UserWithBorrowBooksDTO> GetByIdWithBorrowsAsync(long id);
+        Task<UserGetDTO> GetByNameAsync(string name);
     }
 }
