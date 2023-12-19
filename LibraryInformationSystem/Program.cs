@@ -1,10 +1,10 @@
-using LibraryInformationSystem.BLL.Services;
-using LibraryInformationSystem.BLL.Services.Contracts;
-using LibraryInformationSystem.LibraryInformationSystem.BLL.Services;
-using LibraryInformationSystem.LibraryInformationSystem.DAL.Context;
-using LibraryInformationSystem.LibraryInformationSystem.DAL.Entities;
-using LibraryInformationSystem.LibraryInformationSystem.DAL.Repository;
-using LibraryInformationSystem.LibraryInformationSystem.DAL.Repository.Contracts;
+using BLL.MappingProfiles;
+using BLL.Services;
+using BLL.Services.Contracts;
+using DAL.Context;
+using DAL.Repository;
+using DAL.Repository.Contracts;
+using DAL.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +15,7 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddAutoMapper(typeof(Program).Assembly);
+builder.Services.AddAutoMapper(typeof(BookMappingProfile).Assembly);
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBookService, BookService>();

@@ -1,5 +1,5 @@
-﻿using LibraryInformationSystem.BLL.DTOs.Borrow;
-using LibraryInformationSystem.BLL.Services.Contracts;
+﻿using BLL.Services.Contracts;
+using LibraryInformationSystem.BLL.DTOs.Borrow;
 using LibraryInformationSystem.LibraryInformationSystem.BLL.DTOs.Book;
 using Microsoft.AspNetCore.Mvc;
 
