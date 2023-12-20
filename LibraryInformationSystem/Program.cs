@@ -4,8 +4,6 @@ using BLL.Services.Contracts;
 using DAL.Context;
 using DAL.Repository;
 using DAL.Repository.Contracts;
-using DAL.Entities;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -21,11 +19,9 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IBorrowService, BorrowService>();
 
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 
 var app = builder.Build();
 

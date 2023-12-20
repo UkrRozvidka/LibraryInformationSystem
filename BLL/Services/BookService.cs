@@ -108,10 +108,5 @@ namespace BLL.Services
             var genre = await _genreRepository.GetByIdAsync(book.GenreId);
             return genre.Name;
         }
-
-        public Task<IEnumerable<BookGetDTO>> GetAllWithFilter()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
