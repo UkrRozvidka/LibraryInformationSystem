@@ -6,7 +6,7 @@ using LibraryInformationSystem.LibraryInformationSystem.BLL.DTOs.User;
 using Moq;
 using LibraryInformationSystem.BLL.DTOs.Borrow;
 
-namespace DAl.Tests
+namespace DAl.Tests.Service
 {
     public class BorrowServiceTest : RepositoryMoq
     {
@@ -66,10 +66,10 @@ namespace DAl.Tests
             var borrowId = await _borrowService.CreateAsync(borrowCreateDTO);
 
             var borrowFound = await _borrowService.GetByIdAsync(borrowId);
-            
+
 
             // Assert
-            Assert.Equal(borrowFound.BookId , borrowCreateDTO.BookId);
+            Assert.Equal(borrowFound.BookId, borrowCreateDTO.BookId);
             Assert.Equal(borrowFound.UserId, borrowCreateDTO.UserId);
         }
 
@@ -117,7 +117,7 @@ namespace DAl.Tests
             return new Borrow
             {
                 UserId = 1,
-                BookId = 3, 
+                BookId = 3,
 
             };
         }

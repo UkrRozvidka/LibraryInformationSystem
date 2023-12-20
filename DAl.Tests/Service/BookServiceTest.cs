@@ -14,7 +14,7 @@ using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAl.Tests
+namespace DAl.Tests.Service
 {
     public class BookServiceTest : RepositoryMoq
     {

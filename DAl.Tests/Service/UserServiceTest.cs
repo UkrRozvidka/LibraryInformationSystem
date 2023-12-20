@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace DAl.Tests
+namespace DAl.Tests.Serbice
 {
     public class UserServiceTest : RepositoryMoq
     {
@@ -96,10 +96,10 @@ namespace DAl.Tests
             var userId = await _userService.Create(userCreateDTO);
 
             var userFound = await _userService.GetByIdAsync(userId);
-            
+
 
             // Assert
-            Assert.Equal(userFound.Name , userCreateDTO.Name);
+            Assert.Equal(userFound.Name, userCreateDTO.Name);
             Assert.Equal(userFound.Email, userCreateDTO.Email);
             Assert.Equal(userFound.PhoneNumber, userCreateDTO.PhoneNumber);
         }
